@@ -27,9 +27,9 @@ def get_max_size_photo(photos):  #Эта функция будет приним�
 
 # 2.2 Сохранять фотографии на Я.Диске
 
-def save_to_yandex_disk(photo_url, access_token): #функция будет принимать URL фотографии и токен доступа к Яндекс.Диску в качестве входных данных.
+def save_to_yandex_disk(photo_url, access_token_yandex): #функция будет принимать URL фотографии и токен доступа к Яндекс.Диску в качестве входных данных.
     headers = {
-        'Authorization': f'OAuth {access_token}'
+        'Authorization': f'OAuth {access_token_yandex}'
     }
     response = requests.post('https://cloud-api.yandex.net/v1/disk/resources/upload', params={
         'url': photo_url,
