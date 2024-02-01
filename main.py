@@ -1,17 +1,18 @@
 import requests
 import json
 
+# 1.Все переменные
+user_id = input("Пожалуйста, введите свой идентификатор пользователя ВКонтакте: ")  # id пользователя VK
+access_token_vk = input("Пожалуйста, введите токен доступа ВКонтакте: ")  # действующий токен доступа VK
+access_token_yandex = input("Введите токен доступа к Яндекс Диску: ")  # действующий токен доступа Я.Диск
+
 # 1.Получаем фотографии с профиля пользователя VK с помощью метода photos.get
-user_id = ""  # id пользователя VK
-access_token = ""  # действующий токен доступа VK
-
-
-def get_vk_photos(user_id, access_token):
+def get_vk_photos(user_id, access_token_vk):
     response = requests.get('https://api.vk.com/method/photos.get', params={
         'owner_id': user_id,
         'album_id': 'profile',
         'rev': 1,
-        'access_token': access_token,
+        'access_token': access_token_vk,
         'v': '5.131'
     })    #отправляем GET-запрос к API ВКонтакте для получения фотографий.
     photos_data = response.json()
@@ -52,9 +53,6 @@ def save_to_yandex_disk(photo_url, access_token): #функция будет п�
         print('Failed to save photo with likes to Yandex.Disk')
 
 
-user_id = ""  # id пользователя VK
-access_token_vk = ""  # действующий токен доступа VK
-access_token_yandex = ""  # действующий токен доступа Я.Диск
 
 photos = get_vk_photos(user_id, access_token_vk)
 max_size_photo = get_max_size_photo(photos)
@@ -71,12 +69,8 @@ def create_json_file(photos, file_name):
 
 # Основной код
 if __name__ == "__main__":
-    user_id = ""  # id пользователя VK
-    access_token_vk = ""  # действующий токен доступа VK
-    access_token_yandex_disk = ""  # действующий токен доступа Я.Диск
-
     photos = get_vk_photos(user_id, access_token_vk)
     max_size_photo = get_max_size_photo(photos)
     photo_url = max_size_photo['photo_604']
-    save_to_yandex_disk(max_size_photo, access_token_yandex_disk)
+    save_to_yandex_disk(max_size_photo, access_token_yandex)
     create_json_file(photos)
